@@ -1,5 +1,4 @@
 /*
-Jonathan Hanson, Zacarias Young
 
 client.js
 
@@ -35,7 +34,6 @@ function findUsableWords(wordRange, wordFileName = "allWords"){
 	allWords = allWords.split("\r\n"); //split large string of file into words
 	let usableWords = [];
 	let funny = false;
-	
 	if (randint(1, 10000) === 52) {
 		//Have a 1 in 10,000 chance of the crossword generating only words without certain letters
 		funny = true;
@@ -57,7 +55,7 @@ function randint(min, max = "none"){
 		max = min;
 		min = 0;
 	}
-	return Math.floor(Math.random() * (max + 1)) + min;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 
@@ -619,7 +617,7 @@ module.exports.generateCrossword = function generateCrossword(wordLength, wordCo
 				hitboxes.push([spawnPosition[0], spawnPosition[1] - intersect, 1, newWord.length, newWord, false]);
 				//write to crosswordData
 				writeData(crosswordData, newWord, [spawnPosition[0], spawnPosition[1] - intersect], "vertical");
-				//delete position of word spawn
+				//delete position of word spawn WRONG
 				possiblePositions = del(possiblePositions, intersect);
 				//append each letter to possible positions
 				for (let k = 0; k < newWord.length; k++){
@@ -631,8 +629,6 @@ module.exports.generateCrossword = function generateCrossword(wordLength, wordCo
 			} else {
 				//console.log("Word: " + newWord + " Could not spawn verticaly.");
 			}
-
-			
 			//try spawing horizontaly on the position
 			canSpawn = horizontalCheck(crosswordData, newWord, intersect, spawnPosition);
 			//if the word can spawn
